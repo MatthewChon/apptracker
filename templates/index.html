@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Application Tracking Tool</title>
+<link rel="stylesheet" href="/static/styles.css">
+<script type="text/javascript" src="/static/scripts.js"></script>
+{% endblock %}
+{% block content %}
+<div id="application-data-and-action-commands-header">
+    <ul id="progress-report-headline">
+        <li>
+            total submission:
+            <span>0</span>
+        </li>
+        <li>
+            hits:
+            <span>0</span>
+        </li>
+        <li>
+            misses:
+            <span>0</span>
+        </li>
+        <li>
+            pending:
+            <span>0</span>
+        </li>
+    </ul>
+    <ul id="action-commands">
+        <li>
+            <input type="button" id="submit-tab" onclick="drop_submission_form()" value="new submission">
+        </li>
+    </ul>
+    
+</div>
+<div class="form" id="submission-form">
+    <fieldset>
+        <label for="job-title">Job Title</label>
+        <input type="text" id="job-title"><br>
+
+        <label for="company">Company</label>
+        <input type="text" id="company">
+    </fieldset>
+    <section id="actions">
+        <input type="submit" value="submit">
+        <input type="button" onclick="exit_submission_form()"value="cancel">
+    </section>
+</div>
+<content>
+    
+    <div id="application-chart-and-insight-tool">
+        <section id="application-progress-chart-container">
+
+        </section>
+        <div id="insight-tool-container">
+            <h1>Insight</h1>
+        </div>
+    </div>
+    <section id="application-container">
+        <table id="application-table">
+            <tr id="categories">
+                <th>Date</th>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Job Description</th>
+                <th>Status</th>
+            </tr>
+        </table>
+    </section>
+</content>
+{% endblock %}
