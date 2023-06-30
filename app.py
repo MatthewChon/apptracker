@@ -9,9 +9,14 @@ db.init_app(app)
 
 class Application(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    date_submitted = db.Column(db.DateTime)
+    job_title = db.Column(db.String(50))
+    company_name = db.Column(db.String(50))
+    job_uri = db.Column(db.String(50))
+    status = db.Column(db.String(10))
 
-    def __init__(self, date: datetime, job_title: str, company_name: str, job_uri: str, status="pending"):
-        self.date_submitted = date
+    def __init__(self, date_submitted, job_title, company_name, job_uri, status="pending"):
+        self.date_submitted = date_submitted
         self.job_title = job_title
         self.company_name = company_name
         self.job_uri = job_uri
