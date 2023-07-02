@@ -8,7 +8,7 @@
     --background-color-image: linear-gradient(#101010 0 80%, #171717 100%);
     --background-color-top: #101010;
     --background-color-bottom: #171717;
-    --default-color: #908401;
+    --default-color: #e1d012;
 }
 body {
     display: flex;
@@ -19,7 +19,7 @@ body {
     height: 100vh;
     overflow: hidden;
     background-image: var(--background-color-image);
-    color: #908401;
+    color: var(--default-color);
 }
 content {
     display: flex;
@@ -138,16 +138,46 @@ content {
     height: 49.8%;
     width: 100%;
     border: 1px solid var(--default-color);
-
+    & #table-header {
+        display: flex;
+        width: 100%;
+        & ul {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            list-style: none;
+            padding: 0 0.5em;
+            border-bottom: 1px solid var(--default-color);
+            & li {
+                display: flex;
+                justify-content: center;
+                width: 20%;
+            }
+        }
+    }
     & #application-table {
         height: 100%;
         width: 100%;
-        & #categories {
-            padding: 0 0.5em;
+        & tr {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-evenly;
             width: 100%;
-            border-bottom: 1px solid var(--default-color);
+            
+            & th {
+                width: 20%;
+            }
+            & select {
+                background-color: var(--background-color-bottom);
+                color: var(--default-color);
+                border: none;
+                &:focus {
+                    outline: none;
+                }
+            }
+            &:hover, &:hover select {
+                background-color: var(--default-color);
+                color: var(--background-color-bottom);
+            }
         }
-    }
+    } 
 }

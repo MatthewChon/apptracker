@@ -10,19 +10,19 @@
     <ul id="progress-report-headline">
         <li>
             total submission:
-            <span>0</span>
+            <span>{{ overall_volume }}</span>
         </li>
         <li>
             hits:
-            <span>0</span>
+            <span>{{ hit_volume }}</span>
         </li>
         <li>
             misses:
-            <span>0</span>
+            <span>{{ missed_volume }}</span>
         </li>
         <li>
             pending:
-            <span>0</span>
+            <span>{{ pending_volume }}</span>
         </li>
     </ul>
     <ul id="action-commands">
@@ -64,14 +64,31 @@
         </div>
     </div>
     <section id="application-container">
+        <div id="table-header">
+            <ul>
+                <li>Date</li>
+                <li>Job Title</li>
+                <li>Company</li>
+                <li>Job Description</li>
+                <li>Status</li>
+            </ul>  
+        </div>
         <table id="application-table">
-            <tr id="categories">
-                <th>Date</th>
-                <th>Job Title</th>
-                <th>Company</th>
-                <th>Job Description</th>
-                <th>Status</th>
+            {% for application in application_record['overall_submission'] %}
+            <tr>
+                <th>{{ application['date_submitted'] }}</th>
+                <th>{{ application['job_title'] }}</th>
+                <th>{{ application['company_name'] }}</th>
+                <th>{{ application['job_uri'] }}</th>
+                <th>
+                    <select>
+                        <option value="pending">pending</option>
+                        <option value="passed_screening">hit</option>
+                        <option value="rejected">missed</option>
+                    </select>
+                </th>
             </tr>
+            {% endfor %}
         </table>
     </section>
 </content>
