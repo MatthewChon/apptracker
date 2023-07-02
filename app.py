@@ -24,6 +24,7 @@ class Application(db.Model):
 
 with app.app_context():
     db.create_all()
+
 def get_app_records():
     app_records = {
         "app_pending": get_data_by_type('pending'),
@@ -50,10 +51,14 @@ def is_valid_form_response(data, section):
             return False
     return True
 
+def change_app_status(record_id, new_status):
+    application = Application.query.filter_by(id=record_id).update(dict(status=new_status))
+    db.session.commit()
+
 @app.route("/", methods=["GET"])
 def index():
     application_record = get_app_records()
-    pending_volume = len(application_record['app_missed'])
+    pending_volume = len(application_record['app_pending'])
     hit_volume = len(application_record['app_hit'])
     missed_volume = len(application_record['app_missed'])
     overall_volume = len(application_record['overall_submission'])
@@ -75,4 +80,10 @@ def post_application_data():
                                       user_app.get('job-uri'))
     db.session.add(user_submitted_data)
     db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route("/update_app_status", methods=['POST'])
+def update_app_status():
+    app_request = request.form
+    change_app_status(app_request['application_id'], app_request['status-change'])
     return redirect(url_for('index'))
