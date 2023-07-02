@@ -75,23 +75,25 @@
         </div>
         <table id="application-table">
             {% for application in application_record['overall_submission'] %}
-            <tr>
-                <th>{{ application['date_submitted'] }}</th>
-                <th>{{ application['job_title'] }}</th>
-                <th>{{ application['company_name'] }}</th>
-                <th>{{ application['job_uri'] }}</th>
-                <th>
-                    <form class="form" action="{{ url_for('update_app_status') }}" method="post" id="status-form">
-                        <input type="hidden" value="{{ application['id'] }}" name="application_id">
-                        <select onchange="this.form.submit()" name="status-change">
-                            <option value="none" selected disabled hidden>{{ application['status']}}</option>
-                            <option value="pending">pending</option>
-                            <option value="passed_screening">hit</option>
-                            <option value="rejected">missed</option>
-                        </select>                        
-                    </form>
-                </th>
-            </tr>
+                {% if application['status'] == 'pending' %}
+                    <tr>
+                        <th>{{ application['date_submitted'] }}</th>
+                        <th>{{ application['job_title'] }}</th>
+                        <th>{{ application['company_name'] }}</th>
+                        <th>{{ application['job_uri'] }}</th>
+                        <th>
+                            <form class="form" action="{{ url_for('update_app_status') }}" method="post" id="status-form">
+                                <input type="hidden" value="{{ application['id'] }}" name="application_id">
+                                <select onchange="this.form.submit()" name="status-change">
+                                    <option value="none" selected disabled hidden>{{ application['status']}}</option>
+                                    <option value="pending">pending</option>
+                                    <option value="passed_screening">hit</option>
+                                    <option value="rejected">missed</option>
+                                </select>                        
+                            </form>
+                        </th>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </table>
     </section>
